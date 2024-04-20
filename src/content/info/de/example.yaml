@@ -1,0 +1,9 @@
+fullName: "Max Mustermann"
+email: "max.mustermann@example.com"
+phone: "0123-456789"
+adress: "Musterstraße 1"
+city: "Musterstadt"
+country: "Deutschland"
+zip: "12345"
+birthday: 1990-08-20
+birthplace: "Musterstadt"

@@ -1,0 +1,9 @@
+fullName: "Jane Doe"
+email: "jane.doe@example.com"
+phone: "123-456-7890"
+adress: "1234 Maple Street"
+city: "Anytown"
+country: "USA"
+zip: "90210"
+birthday: 1990-05-15
+birthplace: "Smalltown"

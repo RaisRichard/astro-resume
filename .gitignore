@@ -22,3 +22,27 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Ignore all files in these directories
+src/content/education/en/*
+src/content/education/de/*
+src/content/info/en/*
+src/content/info/de/*
+src/content/interests/en/*
+src/content/interests/de/*
+src/content/languages/en/*
+src/content/languages/de/*
+src/content/professionalExperience/en/*
+src/content/professionalExperience/de/*
+
+# But not these files
+!src/content/education/en/example.yaml
+!src/content/education/de/example.yaml
+!src/content/info/en/example.yaml
+!src/content/info/de/example.yaml
+!src/content/interests/en/example.yaml
+!src/content/interests/de/example.yaml
+!src/content/languages/en/example.yaml
+!src/content/languages/de/example.yaml
+!src/content/professionalExperience/en/example.yaml
+!src/content/professionalExperience/de/example.yaml
