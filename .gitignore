@@ -34,6 +34,9 @@ src/content/languages/en/*
 src/content/languages/de/*
 src/content/professionalExperience/en/*
 src/content/professionalExperience/de/*
+src/content/skills/en/*
+src/content/skills/de/*
+src/content/profile/*
 
 # But not these files
 !src/content/education/en/example.yaml
@@ -46,3 +49,6 @@ src/content/professionalExperience/de/*
 !src/content/languages/de/example.yaml
 !src/content/professionalExperience/en/example.yaml
 !src/content/professionalExperience/de/example.yaml
+!src/content/skills/en/example.yaml
+!src/content/skills/de/example.yaml
+!src/content/profile/example.yaml
