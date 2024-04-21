@@ -7,6 +7,7 @@ import {
 	LanguageSection,
 	SkillsSection,
 	InterestsSection,
+	SignedSection
 } from "../../components";
 import { translations } from "../../util/translations";
 
@@ -71,5 +72,8 @@ const interests = await getEntry(profile.data.interests);
 			entry={interests}
 			title={translations[language].interests}
 		/>
+		<div class="col-start-2 mt-1">
+			<SignedSection {info} />
+		</div>
 	</div>
 </Layout>

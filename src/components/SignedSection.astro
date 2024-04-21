@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import { type CollectionEntry } from "astro:content";
+
+interface Props {
+	info: CollectionEntry<"info">;
+}
+
+const { info } = Astro.props;
+
+const date = new Date();
+const dateString = date.toLocaleString("de-DE", {
+	day: "2-digit",
+	month: "2-digit",
+	year: "numeric",
+});
+---
+
+<div class="flex max-w-96 flex-col place-items-end text-right text-sm">
+	<Image
+		width={150}
+		height={150}
+		alt="Sign"
+		src="/signed.png"
+		class="border-richgreen-700 border-b-2"
+	/>
+	<p class="font-bold">{info.data.fullName}</p>
+	<p>{info.data.city}, {dateString}</p>
+</div>

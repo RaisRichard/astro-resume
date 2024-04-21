@@ -5,3 +5,4 @@ export { default as ListSectionEntry } from "./ListSectionEntry.astro";
 export { default as LanguageSection } from "./LanguagesSection.astro";
 export { default as SkillsSection } from "./SkillsSection.astro";
 export { default as InterestsSection } from "./InterestsSection.astro";
+export { default as SignedSection } from "./SignedSection.astro";

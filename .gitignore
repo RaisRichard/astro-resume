@@ -26,6 +26,9 @@ pnpm-debug.log*
 # My face
 public/image.jpg
 
+# My signage
+public/signed.png
+
 # Ignore all files in these directories
 src/content/education/en/*
 src/content/education/de/*
