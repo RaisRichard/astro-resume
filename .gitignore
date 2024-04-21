@@ -23,6 +23,9 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# My face
+public/image.jpg
+
 # Ignore all files in these directories
 src/content/education/en/*
 src/content/education/de/*
