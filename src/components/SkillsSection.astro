@@ -1,0 +1,40 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { Asterisk } from "lucide-react";
+import { Section } from ".";
+
+interface Props {
+	entries: CollectionEntry<"skills">[];
+	title: string;
+}
+
+const { entries, title } = Astro.props;
+---
+
+<Section title={title}>
+	<div class="flex flex-col text-sm">
+		{
+			entries.map((entry) => {
+				const data = entry.data;
+
+				return (
+					<div class="flex place-content-between items-center py-1 px-4 odd:bg-richblue-50">
+						<div class="flex flex-col">
+							<h3 class="font-bold">{data.skill}</h3>
+							<p>{data.description}</p>
+						</div>
+						<div class="flex">
+                            {Array.from({ length: 5 }).map((_, index) => (
+                                <Asterisk
+                                    key={index}
+                                    size={16}
+                                    className={data.level > index ? 'text-richgreen-900' : 'text-black/60'}
+                                />
+                            ))}
+						</div>
+					</div>
+				);
+			})
+		}
+	</div>
+</Section>

@@ -15,10 +15,10 @@ const data = info.data;
 <div class="max-h-96">
     <div class="flex place-content-between">
         <div class="flex flex-col gap-3">
-            <h1 class="text-3xl font-bold font-sans">{data.fullName}</h1>
-            <div>
+            <h1 class="text-3xl font-black font-display uppercase text-richgreen-700">{data.fullName}</h1>
+            <div class="text-sm">
                 <div class="flex gap-2 place-items-center">
-                    <MapPin size={16} />
+                    <MapPin size={16} className="text-richgreen-700"/>
                     <div>
                         <p>{data.adress}</p>
                         <p>
@@ -27,17 +27,17 @@ const data = info.data;
                     </div>
                 </div>
                 <div class="flex gap-2 place-items-center">
-                    <Smartphone size={16} />
+                    <Smartphone size={16} className="text-richgreen-700"/>
                     <p>{data.phone}</p>
                 </div>
                 <div class="flex gap-2 place-items-center">
-                    <Mail size={16} />
+                    <Mail size={16} className="text-richgreen-700" />
                     <p>{data.email}</p>
                 </div>
             </div>
         </div>
         <div>
-            <Image width={170} height={170} alt="handsome boi/gurl" src="/image.jpg" class="rounded-full"></Image>
+            <Image width={150} height={150} alt="handsome boi/gurl" src="/image.jpg" class="rounded-full border-2 shadow-inner border-richgreen-700"></Image>
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ const { entries, title, presentLabel } = Astro.props;
 ---
 
 <Section title={title}>
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col">
 		{entries.map((entry) => {
 			return (
 				<ListSectionEntry {entry} {presentLabel}/>

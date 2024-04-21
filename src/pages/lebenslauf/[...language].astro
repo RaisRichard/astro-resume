@@ -1,7 +1,13 @@
 ---
 import { getEntry, getEntries } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import { InfoDisplay, ListSection } from "../../components";
+import {
+	InfoDisplay,
+	ListSection,
+	LanguageSection,
+	SkillsSection,
+	InterestsSection,
+} from "../../components";
 import { translations } from "../../util/translations";
 
 // 1. Generate a new path for every collection entry
@@ -24,7 +30,7 @@ if (!profile) {
 }
 const info = await getEntry(profile.data.info);
 const professionalExperience = await getEntries(
-	profile.data.professionalExperience
+	profile.data.professionalExperience,
 );
 const education = await getEntries(profile.data.education);
 const languages = await getEntries(profile.data.languages);
@@ -33,9 +39,37 @@ const interests = await getEntry(profile.data.interests);
 ---
 
 <Layout title="Profile">
-	<div class="m-14 flex flex-col gap-8">
-		<InfoDisplay {info} withImage/>
-		<ListSection entries={professionalExperience} title={translations[language].professionalExperience} presentLabel={translations[language].present}/>
-		<ListSection entries={education} title={translations[language].education} presentLabel={translations[language].present}/>
+	<div class="m-10 grid grid-cols-2 gap-2">
+		<div class="col-span-2">
+			<InfoDisplay {info} withImage />
+		</div>
+		<div class="col-span-2">
+			<ListSection
+				entries={professionalExperience}
+				title={translations[language].professionalExperience}
+				presentLabel={translations[language].present}
+			/>
+		</div>
+		<div class="col-span-2">
+			<ListSection
+				entries={education}
+				title={translations[language].education}
+				presentLabel={translations[language].present}
+			/>
+		</div>
+		<div class="row-span-2">
+			<SkillsSection
+				entries={skills}
+				title={translations[language].skills}
+			/>
+		</div>
+		<LanguageSection
+			entries={languages}
+			title={translations[language].languages}
+		/>
+		<InterestsSection
+			entry={interests}
+			title={translations[language].interests}
+		/>
 	</div>
 </Layout>
