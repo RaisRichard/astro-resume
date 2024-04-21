@@ -1,0 +1,91 @@
+---
+import { type CollectionEntry } from "astro:content";
+
+interface Props {
+	entry: CollectionEntry<"education"| "professionalExperience">;
+	presentLabel: string;
+}
+
+const { entry, presentLabel } = Astro.props;
+
+interface RemappedEntry {
+    label: string;
+    place: string;
+    city: string;
+    country: string;
+    startDate: {
+        month?: number;
+        year: number;
+    };
+    endDate?: {
+        month?: number;
+        year: number;
+    };
+}
+
+let remappedEntry: RemappedEntry;
+
+if (entry.collection === "education") {
+    const data = entry.data;
+
+    remappedEntry = {
+        label: data.degree,
+        place: data.school,
+        city: data.city,
+        country: data.country,
+        startDate: {
+            month: data.startDate.month,
+            year: data.startDate.year,
+        },
+    };
+
+    if (data.endDate) {
+        remappedEntry.endDate = {
+            month: data.endDate.month,
+            year: data.endDate.year,
+        };
+    }
+} else if (entry.collection === "professionalExperience") {
+    const data = entry.data;
+
+    remappedEntry = {
+        label: data.position,
+        place: data.company,
+        city: data.city,
+        country: data.country,
+        startDate: {
+            month: data.startDate.month,
+            year: data.startDate.year,
+        },
+    };
+
+    if (data.endDate) {
+        remappedEntry.endDate = {
+            month: data.endDate.month,
+            year: data.endDate.year,
+        };
+    }
+} else {
+    throw new Error("Invalid collection");
+}
+
+---
+
+<div class="text-sm flex flex-col">
+	<div class="flex place-content-between">
+		<h3 class="font-bold">{remappedEntry.label}</h3>
+		<p class="">
+			{remappedEntry.startDate.month}/{remappedEntry.startDate.year} - {
+				remappedEntry.endDate
+					? `${remappedEntry.endDate.month}/${remappedEntry.endDate.year}`
+					: presentLabel
+			}
+		</p>
+	</div>
+	<div class="flex place-content-between">
+		<p class="italic">{remappedEntry.place}</p>
+		<p>
+			{remappedEntry.city}, {remappedEntry.country}
+		</p>
+	</div>
+</div>

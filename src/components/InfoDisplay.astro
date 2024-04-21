@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import { MapPin, Mail, Smartphone } from "lucide-react";
+import { type CollectionEntry } from "astro:content";
+
+interface Props {
+    info: CollectionEntry<"info">;
+	withImage?: boolean;
+}
+
+const {info, withImage} = Astro.props;
+const data = info.data;
+---
+
+<div class="max-h-96">
+    <div class="flex place-content-between">
+        <div class="flex flex-col gap-3">
+            <h1 class="text-3xl font-bold font-sans">{data.fullName}</h1>
+            <div>
+                <div class="flex gap-2 place-items-center">
+                    <MapPin size={16} />
+                    <div>
+                        <p>{data.adress}</p>
+                        <p>
+                            {data.zip} {data.city}
+                        </p>
+                    </div>
+                </div>
+                <div class="flex gap-2 place-items-center">
+                    <Smartphone size={16} />
+                    <p>{data.phone}</p>
+                </div>
+                <div class="flex gap-2 place-items-center">
+                    <Mail size={16} />
+                    <p>{data.email}</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <Image width={170} height={170} alt="handsome boi/gurl" src="/image.jpg" class="rounded-full"></Image>
+        </div>
+    </div>
+</div>

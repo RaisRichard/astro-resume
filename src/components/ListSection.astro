@@ -1,0 +1,22 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { Section, ListSectionEntry } from ".";
+
+interface Props {
+	entries: CollectionEntry<"education" | "professionalExperience">[];
+	title: string;
+    presentLabel: string;
+}
+
+const { entries, title, presentLabel } = Astro.props;
+---
+
+<Section title={title}>
+    <div class="flex flex-col gap-2">
+		{entries.map((entry) => {
+			return (
+				<ListSectionEntry {entry} {presentLabel}/>
+			)
+		})}
+	</div>
+</Section>

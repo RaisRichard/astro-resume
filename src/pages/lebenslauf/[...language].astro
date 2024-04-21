@@ -1,6 +1,8 @@
 ---
 import { getEntry, getEntries } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import { InfoDisplay, ListSection } from "../../components";
+import { translations } from "../../util/translations";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
@@ -11,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 // 2. For your template, you can get the entry directly from the prop
-const { language } = Astro.props;
+const language = Astro.props.language as unknown as "de" | "en";
 
 const profile = await getEntry("profile", `${language}/richard`);
 if (!profile) {
@@ -31,7 +33,9 @@ const interests = await getEntry(profile.data.interests);
 ---
 
 <Layout title="Profile">
-	<div class="border border-red-500">
-		{JSON.stringify(info)}
+	<div class="m-14 flex flex-col gap-8">
+		<InfoDisplay {info} withImage/>
+		<ListSection entries={professionalExperience} title={translations[language].professionalExperience} presentLabel={translations[language].present}/>
+		<ListSection entries={education} title={translations[language].education} presentLabel={translations[language].present}/>
 	</div>
 </Layout>

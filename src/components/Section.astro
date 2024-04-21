@@ -1,0 +1,17 @@
+---
+import { Asterisk } from "lucide-react";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="flex flex-col">
+	<div class="flex w-fit place-items-center gap-1 py-2 leading-none">
+		<Asterisk size={16} />
+		<h1 class="text-xl font-extrabold text-gray-900 underline">{title}</h1>
+	</div>
+	<div><slot /></div>
+</div>
