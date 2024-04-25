@@ -1,6 +1,10 @@
 degree: "Bachelor of Science in Computer Science"
 school: "University of Excellence"
-startDate: 2014-09-01
-endDate: 2018-05-15
+startDate:
+  month: 9
+  year: 2014
+endDate:
+  month: 5
+  year: 2018
 city: "Educity"
 country: "USA"

@@ -8,12 +8,12 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<div class="flex flex-col rounded-md border-2 border-richgreen-700 py-4">
+<section class="flex flex-col rounded-md border-2 border-richgreen-700 py-3 min-h-full">
 	<div class="flex w-fit place-items-center gap-1 leading-[0] px-4">
 		<Asterisk size={16} />
-		<h1 class="font-display text-xl font-black uppercase text-richgreen-700">
+		<h1 class="font-display text-lg font-black uppercase text-richgreen-700">
 			{title}
 		</h1>
 	</div>
 	<div><slot /></div>
-</div>
+</section>

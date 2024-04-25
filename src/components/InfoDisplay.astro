@@ -5,52 +5,55 @@ import { type CollectionEntry } from "astro:content";
 
 interface Props {
 	info: CollectionEntry<"info">;
+	displayCountry?: boolean;
 	withImage?: boolean;
 }
 
-const { info, withImage } = Astro.props;
+const { info, displayCountry, withImage } = Astro.props;
 const data = info.data;
 ---
 
-<div class="max-h-96">
+<header class="max-h-96">
 	<div class="flex place-content-between">
 		<div class="flex flex-col gap-3">
 			<h1
-				class="font-display text-richgreen-700 text-3xl font-black uppercase"
+				itemprop="name"
+				class="font-display text-3xl font-black uppercase text-richgreen-700"
 			>
 				{data.fullName}
 			</h1>
-			<div class="text-sm p-2">
+			<div class="p-2 text-sm">
 				<div class="flex place-items-center gap-2">
 					<MapPin size={16} className="text-richgreen-700" />
-					<div>
-						<p>{data.adress}</p>
+					<div itemprop="address">
+						<p>{data.address}</p>
 						<p>
 							{data.zip}
-							{data.city}
+							{data.city}{displayCountry && `, ${data.country}`}
 						</p>
 					</div>
 				</div>
 				<div class="flex place-items-center gap-2">
 					<Smartphone size={16} className="text-richgreen-700" />
-					<p>{data.phone}</p>
+					<p itemprop="telephone">{data.phone}</p>
 				</div>
 				<div class="flex place-items-center gap-2">
 					<Mail size={16} className="text-richgreen-700" />
-					<p>{data.email}</p>
+					<p itemprop="email">{data.email}</p>
 				</div>
 			</div>
 		</div>
 		{
 			withImage && (
 				<Image
+					itemprop="image"
 					width={150}
 					height={150}
 					alt="handsome boi/gurl"
 					src="/image.jpg"
-					class="border-richgreen-700 rounded-full border-2 shadow-inner"
+					class="rounded-full border-2 border-richgreen-700 shadow-inner"
 				/>
 			)
 		}
 	</div>
-</div>
+</header>

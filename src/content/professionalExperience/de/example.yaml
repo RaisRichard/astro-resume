@@ -1,6 +1,10 @@
 position: "Softwareentwickler"
 company: "Innovative Technologien GmbH"
-startDate: 2018-04-01
-endDate: 2022-11-30
+startDate:
+  month: 4
+  year: 2018
+endDate:
+  month: 11
+  year: 2022
 city: "Techstadt"
 country: "Deutschland"

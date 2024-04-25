@@ -7,20 +7,29 @@ import {
 	LanguageSection,
 	SkillsSection,
 	InterestsSection,
-	SignedSection
+	SignedSection,
 } from "../../components";
 import { translations } from "../../util/translations";
 
 // 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
 	return [
-		{ params: { language: "en" }, props: { language: "en" } },
-		{ params: { language: "de" }, props: { language: "de" } },
+		{
+			params: { language: "en" },
+			props: { language: "en", displayCountry: true },
+		},
+		{
+			params: { language: "de" },
+			props: { language: "de", displayCountry: false },
+		},
 	];
 }
 
 // 2. For your template, you can get the entry directly from the prop
-const language = Astro.props.language as unknown as "de" | "en";
+const { language, displayCountry } = Astro.props as unknown as {
+	language: "de" | "en";
+	displayCountry?: boolean;
+};
 
 const profile = await getEntry("profile", `${language}/richard`);
 if (!profile) {
@@ -39,10 +48,14 @@ const skills = await getEntries(profile.data.skills);
 const interests = await getEntry(profile.data.interests);
 ---
 
-<Layout title="Profile">
-	<div class="m-10 grid grid-cols-2 gap-2">
+<Layout title={info.data.fullName + " " + translations[language].cv}>
+	<main
+		itemscope
+		itemtype="http://schema.org/Person"
+		class="m-10 grid grid-cols-2 gap-2"
+	>
 		<div class="col-span-2">
-			<InfoDisplay {info} withImage />
+			<InfoDisplay {info} {displayCountry} withImage />
 		</div>
 		<div class="col-span-2">
 			<ListSection
@@ -58,7 +71,7 @@ const interests = await getEntry(profile.data.interests);
 				presentLabel={translations[language].present}
 			/>
 		</div>
-		<div class="row-span-2">
+		<div class="row-span-2 min-h-full">
 			<SkillsSection
 				entries={skills}
 				title={translations[language].skills}
@@ -75,5 +88,5 @@ const interests = await getEntry(profile.data.interests);
 		<div class="col-start-2 mt-1">
 			<SignedSection {info} />
 		</div>
-	</div>
+	</main>
 </Layout>

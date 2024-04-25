@@ -1,6 +1,10 @@
 position: "Software Engineer"
 company: "Tech Innovations Inc."
-startDate: 2018-06-01
-endDate: 2022-12-01
+startDate:
+  month: 6
+  year: 2018
+endDate:
+  month: 12
+  year: 2022
 city: "Techville"
 country: "USA"

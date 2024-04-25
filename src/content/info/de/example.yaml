@@ -1,7 +1,7 @@
 fullName: "Max Mustermann"
 email: "max.mustermann@example.com"
 phone: "0123-456789"
-adress: "Musterstraße 1"
+address: "Musterstraße 1"
 city: "Musterstadt"
 country: "Deutschland"
 zip: "12345"

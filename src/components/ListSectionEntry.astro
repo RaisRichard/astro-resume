@@ -14,12 +14,12 @@ interface RemappedEntry {
     city: string;
     country: string;
     startDate: {
-        month?: number;
-        year: number;
+        month?: number | string;
+        year: number | string;
     };
     endDate?: {
-        month?: number;
-        year: number;
+        month?: number | string;
+        year: number | string;
     };
 }
 
@@ -67,6 +67,14 @@ if (entry.collection === "education") {
     }
 } else {
     throw new Error("Invalid collection");
+}
+
+if (remappedEntry.startDate.month as number < 10) {
+    remappedEntry.startDate.month = "0" + remappedEntry.startDate.month?.toString();
+}
+
+if (remappedEntry.endDate && remappedEntry.endDate.month as number < 10) {
+    remappedEntry.endDate.month = "0" + remappedEntry.endDate.month?.toString();
 }
 
 ---

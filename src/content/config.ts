@@ -11,7 +11,7 @@ const infoCollection = defineCollection({
 		fullName: z.string(),
 		email: z.string().email(),
 		phone: z.string(),
-		adress: z.string(),
+		address: z.string(),
 		city: z.string(),
 		country: z.string(),
 		zip: z.string(),
@@ -48,6 +48,7 @@ const languagesCollection = defineCollection({
 	schema: z.object({
 		language: z.string(),
 		level: z.string(),
+		tag: z.string(), // IETF BCP 47 language tag for Schema.org "knowsLanguage" itemprop
 	}),
 });
 
