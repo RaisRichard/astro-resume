@@ -12,12 +12,12 @@ const { entry, title } = Astro.props;
 ---
 
 <Section title={title}>
-	<div class="text-xs">
+	<div class="">
 		{
 			entry.data.interests.map((interest, index, array) => (
 				<div class="flex items-center odd:bg-richblue-50 py-0.5 px-4">
-                    <Dot size={24} className="" />
-					<p class="max-w-64 font-semibold">{interest}</p>
+                    <Dot size={24} className="grow-0 shrink-0" />
+					<p class="text-sm">{interest}</p>
 				</div>
 			))
 		}

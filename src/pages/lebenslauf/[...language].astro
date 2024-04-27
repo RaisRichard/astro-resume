@@ -49,44 +49,49 @@ const interests = await getEntry(profile.data.interests);
 ---
 
 <Layout title={info.data.fullName + " " + translations[language].cv}>
-	<main
-		itemscope
-		itemtype="http://schema.org/Person"
-		class="m-10 grid grid-cols-2 gap-2"
-	>
-		<div class="col-span-2">
-			<InfoDisplay {info} {displayCountry} withImage />
+	<main itemscope itemtype="http://schema.org/Person">
+		<div class="sheet">
+			<div class="m-10 grid grid-cols-2 gap-2">
+				<div class="col-span-2">
+					<InfoDisplay {info} {displayCountry} withImage />
+				</div>
+				<div class="col-span-2">
+					<ListSection
+						entries={professionalExperience}
+						title={translations[language].professionalExperience}
+						presentLabel={translations[language].present}
+					/>
+				</div>
+				<div class="col-span-2">
+					<ListSection
+						entries={education}
+						title={translations[language].education}
+						presentLabel={translations[language].present}
+					/>
+				</div>
+			</div>
 		</div>
-		<div class="col-span-2">
-			<ListSection
-				entries={professionalExperience}
-				title={translations[language].professionalExperience}
-				presentLabel={translations[language].present}
-			/>
+		<div class="sheet">
+			<div class="m-10 grid grid-cols-2 gap-2">
+				<div class="row-span-2 min-h-full">
+					<SkillsSection
+						entries={skills}
+						title={translations[language].skills}
+					/>
+				</div>
+				<LanguageSection
+					entries={languages}
+					title={translations[language].languages}
+				/>
+				<InterestsSection
+					entry={interests}
+					title={translations[language].interests}
+				/>
+				<div class="col-start-2 mt-2">
+					<SignedSection {info} />
+				</div>
+			</div>
 		</div>
-		<div class="col-span-2">
-			<ListSection
-				entries={education}
-				title={translations[language].education}
-				presentLabel={translations[language].present}
-			/>
-		</div>
-		<div class="row-span-2 min-h-full">
-			<SkillsSection
-				entries={skills}
-				title={translations[language].skills}
-			/>
-		</div>
-		<LanguageSection
-			entries={languages}
-			title={translations[language].languages}
-		/>
-		<InterestsSection
-			entry={interests}
-			title={translations[language].interests}
-		/>
-		<div class="col-start-2 mt-1">
-			<SignedSection {info} />
-		</div>
+		
 	</main>
 </Layout>

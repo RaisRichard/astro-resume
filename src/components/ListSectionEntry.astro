@@ -1,85 +1,91 @@
 ---
 import { type CollectionEntry } from "astro:content";
+import { Dot } from "lucide-react";
 
 interface Props {
-	entry: CollectionEntry<"education"| "professionalExperience">;
+	entry: CollectionEntry<"education" | "professionalExperience">;
 	presentLabel: string;
 }
 
 const { entry, presentLabel } = Astro.props;
 
 interface RemappedEntry {
-    label: string;
-    place: string;
-    city: string;
-    country: string;
-    startDate: {
-        month?: number | string;
-        year: number | string;
-    };
-    endDate?: {
-        month?: number | string;
-        year: number | string;
-    };
+	label: string;
+	place: string;
+	city: string;
+	country: string;
+	startDate: {
+		month?: number | string;
+		year: number | string;
+	};
+	endDate?: {
+		month?: number | string;
+		year: number | string;
+	};
+	notes?: string[];
 }
 
 let remappedEntry: RemappedEntry;
 
 if (entry.collection === "education") {
-    const data = entry.data;
+	const data = entry.data;
 
-    remappedEntry = {
-        label: data.degree,
-        place: data.school,
-        city: data.city,
-        country: data.country,
-        startDate: {
-            month: data.startDate.month,
-            year: data.startDate.year,
-        },
-    };
+	remappedEntry = {
+		label: data.degree,
+		place: data.school,
+		city: data.city,
+		country: data.country,
+		startDate: {
+			month: data.startDate.month,
+			year: data.startDate.year,
+		},
+	};
 
-    if (data.endDate) {
-        remappedEntry.endDate = {
-            month: data.endDate.month,
-            year: data.endDate.year,
-        };
-    }
+	if (data.endDate) {
+		remappedEntry.endDate = {
+			month: data.endDate.month,
+			year: data.endDate.year,
+		};
+	}
 } else if (entry.collection === "professionalExperience") {
-    const data = entry.data;
+	const data = entry.data;
 
-    remappedEntry = {
-        label: data.position,
-        place: data.company,
-        city: data.city,
-        country: data.country,
-        startDate: {
-            month: data.startDate.month,
-            year: data.startDate.year,
-        },
-    };
+	remappedEntry = {
+		label: data.position,
+		place: data.company,
+		city: data.city,
+		country: data.country,
+		startDate: {
+			month: data.startDate.month,
+			year: data.startDate.year,
+		},
+	};
 
-    if (data.endDate) {
-        remappedEntry.endDate = {
-            month: data.endDate.month,
-            year: data.endDate.year,
-        };
-    }
+	if (data.endDate) {
+		remappedEntry.endDate = {
+			month: data.endDate.month,
+			year: data.endDate.year,
+		};
+	}
+
+	if (data.notes) {
+		remappedEntry.notes = data.notes;
+	}
 } else {
-    throw new Error("Invalid collection");
+	throw new Error("Invalid collection");
 }
 
-if (remappedEntry.startDate.month as number < 10) {
-    remappedEntry.startDate.month = "0" + remappedEntry.startDate.month?.toString();
+if ((remappedEntry.startDate.month as number) < 10) {
+	remappedEntry.startDate.month =
+		"0" + remappedEntry.startDate.month?.toString();
 }
 
-if (remappedEntry.endDate && remappedEntry.endDate.month as number < 10) {
-    remappedEntry.endDate.month = "0" + remappedEntry.endDate.month?.toString();
+if (remappedEntry.endDate && (remappedEntry.endDate.month as number) < 10) {
+	remappedEntry.endDate.month = "0" + remappedEntry.endDate.month?.toString();
 }
-
 ---
 
-<div class="text-sm flex flex-col odd:bg-richblue-50 py-1 px-4">
+<div class="flex flex-col px-4 py-1 text-sm odd:bg-richblue-50">
 	<div class="flex place-content-between">
 		<h3 class="font-bold">{remappedEntry.label}</h3>
 		<p class="">
@@ -96,4 +102,16 @@ if (remappedEntry.endDate && remappedEntry.endDate.month as number < 10) {
 			{remappedEntry.city}, {remappedEntry.country}
 		</p>
 	</div>
+	{
+		remappedEntry.notes && (
+			<ul>
+				{remappedEntry.notes.map((note) => (
+					<li class="flex items-center py-0.5 px-2">
+						<Dot size={24} className="grow-0 shrink-0"/>
+						<p>{note}</p>
+					</li>
+				))}
+			</ul>
+		)
+	}
 </div>

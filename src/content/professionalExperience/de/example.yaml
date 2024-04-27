@@ -8,3 +8,7 @@ endDate:
   year: 2022
 city: "Techstadt"
 country: "Deutschland"
+notes:
+  - "Entwicklung von Softwarelösungen"
+  - "Durchführung von Code-Reviews"
+  - "Erstellung von Dokumentationen"

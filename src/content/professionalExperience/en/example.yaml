@@ -8,3 +8,7 @@ endDate:
   year: 2022
 city: "Techville"
 country: "USA"
+notes:
+  - "Developed software solutions"
+  - "Conducted code reviews"
+  - "Created documentation"

@@ -28,6 +28,7 @@ const professionalExperienceCollection = defineCollection({
 		endDate: zodCVDate.optional(),
 		city: z.string(),
 		country: z.string(),
+		notes: z.array(z.string()),
 	}),
 });
 
@@ -68,7 +69,7 @@ const interestsCollection = defineCollection({
 	}),
 });
 
-// References and binds together all collections
+// References that binds together all collections
 const profileCollection = defineCollection({
 	type: "data",
 	schema: z.object({
@@ -80,6 +81,8 @@ const profileCollection = defineCollection({
 		interests: reference("interests"),
 	}),
 });
+
+
 
 export const collections = {
 	info: infoCollection,
