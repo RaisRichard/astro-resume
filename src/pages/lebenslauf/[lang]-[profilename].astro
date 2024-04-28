@@ -1,5 +1,5 @@
 ---
-import { getEntry, getEntries } from "astro:content";
+import { getEntry, getEntries, getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import {
 	InfoDisplay,
@@ -11,33 +11,45 @@ import {
 } from "../../components";
 import { translations } from "../../util/translations";
 
-// 1. Generate a new path for every collection entry
+/**
+ * This function gets called at build time on server-side to generate the list of paths.
+ * Astro expects this function to return an array of possible values for `params`, 
+ * and gives the page specific props depending on the returned values.
+ * 
+ * Profile IDs are in the format "lang/profilename", e.g. "en/john", and need to be mapped to the expected params.
+ */
 export async function getStaticPaths() {
-	return [
-		{
-			params: { language: "en" },
-			props: { language: "en", displayCountry: true },
-		},
-		{
-			params: { language: "de" },
-			props: { language: "de", displayCountry: false },
-		},
-	];
-}
+	const profiles = await getCollection("profile");
 
-// 2. For your template, you can get the entry directly from the prop
-const { language, displayCountry } = Astro.props as unknown as {
-	language: "de" | "en";
-	displayCountry?: boolean;
-};
+	return profiles.map((profile) => {
+		const [lang, ...slug] = profile.id.split("/");
 
-const profile = await getEntry("profile", `${language}/richard`);
-if (!profile) {
-	return new Response("No profile with matching language!", {
-		status: 404,
-		statusText: "Not Found",
+		return {
+			params: {
+				lang,
+				profilename: slug.join("/") || undefined,
+			},
+			props: {
+				lang,
+				profile
+			}
+		}
 	});
 }
+
+const { lang:language, profile } = Astro.props;
+const displayCountry = language === "en"; // This could be improved
+
+// There is seemingly no way to return specific messages from page generation in Astro, otherwise we could tell the user what went wrong
+// Though this still narrows down TS types
+if (language !== "en" && language !== "de") {
+	// Language not supported
+	return;
+} else if (!profile) {
+	// Profile not found
+	return;
+}
+
 const info = await getEntry(profile.data.info);
 const professionalExperience = await getEntries(
 	profile.data.professionalExperience,
