@@ -3,7 +3,7 @@ import { type CollectionEntry } from "astro:content";
 import { Dot } from "lucide-react";
 
 interface Props {
-	entry: CollectionEntry<"education" | "professionalExperience">;
+	entry: CollectionEntry<"education" | "professionalExperience" | "training">;
 	presentLabel: string;
 }
 
@@ -12,9 +12,9 @@ const { entry, presentLabel } = Astro.props;
 interface RemappedEntry {
 	label: string;
 	place: string;
-	city: string;
-	country: string;
-	startDate: {
+	city?: string;
+	country?: string;
+	startDate?: {
 		month?: number | string;
 		year: number | string;
 	};
@@ -71,11 +71,22 @@ if (entry.collection === "education") {
 	if (data.notes) {
 		remappedEntry.notes = data.notes;
 	}
+} else if (entry.collection === "training") {
+	const data = entry.data;
+
+	remappedEntry = {
+		label: data.name,
+		place: data.place,
+		endDate: {
+			month: data.date.month,
+			year: data.date.year,
+		},
+	};
 } else {
 	throw new Error("Invalid collection");
 }
 
-if ((remappedEntry.startDate.month as number) < 10) {
+if (remappedEntry.startDate && (remappedEntry.startDate.month as number) < 10) {
 	remappedEntry.startDate.month =
 		"0" + remappedEntry.startDate.month?.toString();
 }
@@ -88,26 +99,42 @@ if (remappedEntry.endDate && (remappedEntry.endDate.month as number) < 10) {
 <div class="flex flex-col px-4 py-1 text-sm odd:bg-richblue-50">
 	<div class="flex place-content-between">
 		<h3 class="font-bold">{remappedEntry.label}</h3>
-		<p class="">
-			{remappedEntry.startDate.month}/{remappedEntry.startDate.year} - {
-				remappedEntry.endDate
-					? `${remappedEntry.endDate.month}/${remappedEntry.endDate.year}`
-					: presentLabel
-			}
-		</p>
+		{
+			remappedEntry.startDate && remappedEntry.endDate ? (
+				<p class="">
+					{remappedEntry.startDate.month}/{remappedEntry.startDate.year} - {remappedEntry.endDate.month}/{remappedEntry.endDate.year}
+				</p>
+			) : remappedEntry.startDate ? (
+				<p class="">
+					{remappedEntry.startDate.month}/{remappedEntry.startDate.year} - {presentLabel}
+				</p>
+			) : remappedEntry.endDate ? (
+				<p class="">
+					{remappedEntry.endDate.month}/{remappedEntry.endDate.year}
+				</p>
+			) : (
+				<div />
+			)
+		}
 	</div>
 	<div class="flex place-content-between">
 		<p class="italic">{remappedEntry.place}</p>
-		<p>
-			{remappedEntry.city}, {remappedEntry.country}
-		</p>
+		{
+			remappedEntry.city && remappedEntry.country ? (
+				<p>
+					{remappedEntry.city}, {remappedEntry.country}
+				</p>
+			) : (
+				<div />
+			)
+		}
 	</div>
 	{
 		remappedEntry.notes && (
 			<ul>
 				{remappedEntry.notes.map((note) => (
-					<li class="flex items-center py-0.5 px-2">
-						<Dot size={24} className="grow-0 shrink-0"/>
+					<li class="flex items-center px-2 py-0.5">
+						<Dot size={24} className="grow-0 shrink-0" />
 						<p>{note}</p>
 					</li>
 				))}

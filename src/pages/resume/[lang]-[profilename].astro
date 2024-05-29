@@ -54,6 +54,7 @@ const info = await getEntry(profile.data.info);
 const professionalExperience = await getEntries(
 	profile.data.professionalExperience,
 );
+const training = await getEntries(profile.data.training);
 const education = await getEntries(profile.data.education);
 const languages = await getEntries(profile.data.languages);
 const skills = await getEntries(profile.data.skills);
@@ -65,7 +66,7 @@ const interests = await getEntry(profile.data.interests);
 		<div class="sheet">
 			<div class="m-10 grid grid-cols-2 gap-2">
 				<div class="col-span-2">
-					<InfoDisplay {info} {displayCountry} />
+					<InfoDisplay {info} {displayCountry} withImage/>
 				</div>
 				<div class="col-span-2">
 					<ListSection
@@ -81,10 +82,18 @@ const interests = await getEntry(profile.data.interests);
 						presentLabel={translations[language].present}
 					/>
 				</div>
+				
 			</div>
 		</div>
 		<div class="sheet">
 			<div class="m-10 grid grid-cols-2 gap-2">
+				<div class="col-span-2">
+					<ListSection
+						entries={training}
+						title={translations[language].training}
+						presentLabel={translations[language].present}
+					/>
+				</div>
 				<div class="row-span-2 min-h-full">
 					<SkillsSection
 						entries={skills}

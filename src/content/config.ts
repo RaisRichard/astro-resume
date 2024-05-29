@@ -32,6 +32,15 @@ const professionalExperienceCollection = defineCollection({
 	}),
 });
 
+const trainingCollection = defineCollection({
+	type: "data",
+	schema: z.object({
+		name: z.string(),
+		place: z.string(),
+		date: zodCVDate,
+	}),
+});
+
 const educationCollection = defineCollection({
 	type: "data",
 	schema: z.object({
@@ -76,6 +85,7 @@ const profileCollection = defineCollection({
 		info: reference("info"),
 		professionalExperience: z.array(reference("professionalExperience")),
 		education: z.array(reference("education")),
+		training: z.array(reference("training")),
 		languages: z.array(reference("languages")),
 		skills: z.array(reference("skills")),
 		interests: reference("interests"),
@@ -88,6 +98,7 @@ export const collections = {
 	info: infoCollection,
 	professionalExperience: professionalExperienceCollection,
 	education: educationCollection,
+	training: trainingCollection,
 	languages: languagesCollection,
 	skills: skillsCollection,
 	interests: interestsCollection,
