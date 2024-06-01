@@ -3,6 +3,7 @@ interface Translations {
     professionalExperience: string;
     education: string;
     training: string;
+    projects: string;
     languages: string;
     skills: string;
     interests: string;
@@ -14,6 +15,7 @@ const translationsDE: Translations = {
     professionalExperience: "Berufliche Erfahrung",
     education: "Schulbildung",
     training: "Schulungen",
+    projects: "Projekte",
     languages: "Sprachkenntnisse",
     skills: "Kenntnisse",
     interests: "Interessen / Hobbys",
@@ -25,6 +27,7 @@ const translationsEN: Translations = {
     professionalExperience: "Professional Experience",
     education: "Education",
     training: "Training",
+    projects: "Projects",
     languages: "Languages",
     skills: "Skills",
     interests: "Interests / Hobbies",

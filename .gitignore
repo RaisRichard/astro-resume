@@ -46,6 +46,8 @@ src/content/profile/de/*
 src/content/profile/en/*
 src/content/training/de/*
 src/content/training/en/*
+src/content/projects/de/*
+src/content/projects/en/*
 
 # But not these files
 !src/content/education/en/example.yaml
@@ -64,3 +66,5 @@ src/content/training/en/*
 !src/content/profile/de/example.yaml
 !src/content/training/en/example.yaml
 !src/content/training/de/example.yaml
+!src/content/projects/en/example.yaml
+!src/content/projects/de/example.yaml

@@ -16,6 +16,7 @@ const infoCollection = defineCollection({
 		country: z.string(),
 		zip: z.string(),
 		birthday: z.date(),
+		githubUsername: z.string().optional(),
 	}),
 });
 
@@ -32,15 +33,6 @@ const professionalExperienceCollection = defineCollection({
 	}),
 });
 
-const trainingCollection = defineCollection({
-	type: "data",
-	schema: z.object({
-		name: z.string(),
-		place: z.string(),
-		date: zodCVDate,
-	}),
-});
-
 const educationCollection = defineCollection({
 	type: "data",
 	schema: z.object({
@@ -50,6 +42,23 @@ const educationCollection = defineCollection({
 		endDate: zodCVDate.optional(),
 		city: z.string(),
 		country: z.string(),
+	}),
+});
+
+const trainingCollection = defineCollection({
+	type: "data",
+	schema: z.object({
+		name: z.string(),
+		place: z.string(),
+		date: zodCVDate,
+	}),
+});
+
+const projectsCollection = defineCollection({
+	type: "data",
+	schema: z.object({
+		categoryName: z.string(),
+		projects: z.array(z.string()),
 	}),
 });
 
@@ -86,19 +95,19 @@ const profileCollection = defineCollection({
 		professionalExperience: z.array(reference("professionalExperience")),
 		education: z.array(reference("education")),
 		training: z.array(reference("training")),
+		projects: z.array(reference("projects")),
 		languages: z.array(reference("languages")),
 		skills: z.array(reference("skills")),
 		interests: reference("interests"),
 	}),
 });
 
-
-
 export const collections = {
 	info: infoCollection,
 	professionalExperience: professionalExperienceCollection,
 	education: educationCollection,
 	training: trainingCollection,
+	projects: projectsCollection,
 	languages: languagesCollection,
 	skills: skillsCollection,
 	interests: interestsCollection,

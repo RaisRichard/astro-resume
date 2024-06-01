@@ -1,0 +1,30 @@
+---
+import { type CollectionEntry } from "astro:content";
+import { Dot } from "lucide-react";
+import { Section } from ".";
+
+interface Props {
+	entries: CollectionEntry<"projects">[];
+	title: string;
+}
+
+const { entries, title } = Astro.props;
+---
+
+<Section title={title}>
+	<div>
+		{
+			entries.map((entry) => (
+				<div class="mt-2">
+					<h3 class="text-md font-bold font-display text-richblue-700 ml-9">{entry.data.categoryName}</h3>
+					{entry.data.projects.map((project) => (
+						<div class="flex items-center px-4 py-0.5 odd:bg-richblue-50">
+							<Dot size={28} className="grow-0 shrink-0" />
+							<p class="text-sm">{project}</p>
+						</div>
+					))}
+				</div>
+			))
+		}
+	</div>
+</Section>
