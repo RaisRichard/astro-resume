@@ -1,5 +1,6 @@
 interface Translations {
-    cv: string;	
+    resume: string;	
+    letter: string;
     professionalExperience: string;
     education: string;
     training: string;
@@ -11,7 +12,8 @@ interface Translations {
 }
 
 const translationsDE: Translations = {
-    cv: "Lebenslauf",
+    resume: "Lebenslauf",
+    letter: "Anschreiben",
     professionalExperience: "Berufliche Erfahrung",
     education: "Schulbildung",
     training: "Schulungen",
@@ -23,7 +25,8 @@ const translationsDE: Translations = {
 }
 
 const translationsEN: Translations = {
-    cv: "CV",
+    resume: "Resume",
+    letter: "Cover Letter",
     professionalExperience: "Professional Experience",
     education: "Education",
     training: "Training",

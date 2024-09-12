@@ -63,7 +63,7 @@ const skills = await getEntries(profile.data.skills);
 const interests = await getEntry(profile.data.interests);
 ---
 
-<Layout title={info.data.fullName + " " + translations[language].cv}>
+<Layout title={info.data.fullName + " " + translations[language].resume}>
 	<main itemscope itemtype="http://schema.org/Person">
 		<div class="sheet">
 			<div class="m-10 flex flex-col gap-2">
@@ -108,7 +108,7 @@ const interests = await getEntry(profile.data.interests);
 					title={translations[language].interests}
 				/>
 				<div class="col-start-2 mt-2">
-					<SignedSection {info} />
+					<SignedSection {info} showDate alignRight />
 				</div>
 			</div>
 		</div>

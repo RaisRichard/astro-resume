@@ -20,6 +20,18 @@ const infoCollection = defineCollection({
 	}),
 });
 
+const letterCollection = defineCollection({
+	type: "content",
+	schema: z.object({
+		language: z.string(),
+		recipient: z.string(),
+		companyName: z.string(),
+		companyAddress: z.string(),
+		companyCity: z.string(),
+		title: z.string(),
+	}),
+})
+
 const professionalExperienceCollection = defineCollection({
 	type: "data",
 	schema: z.object({
@@ -104,6 +116,7 @@ const profileCollection = defineCollection({
 
 export const collections = {
 	info: infoCollection,
+	letter: letterCollection,
 	professionalExperience: professionalExperienceCollection,
 	education: educationCollection,
 	training: trainingCollection,

@@ -1,0 +1,105 @@
+---
+import { getEntry, getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { InfoDisplay, SignedSection } from "../../components";
+import { translations } from "../../util/translations";
+import type { CollectionEntry } from "astro:content";
+
+/**
+ * This function gets called at build time on server-side to generate the list of paths.
+ * Astro expects this function to return an array of possible values for `params`,
+ * and gives the page specific props depending on the returned values.
+ */
+export async function getStaticPaths() {
+	const profiles = await getCollection("profile");
+	const letterCollection = await getCollection("letter");
+
+	const paths: {
+		params: { company: string; profilename: string };
+		props: {
+			letter: CollectionEntry<"letter">;
+			profile: CollectionEntry<"profile">;
+		};
+	}[] = [];
+
+	letterCollection.forEach((letter) => {
+		profiles.forEach((profile) => {
+			const [profileLanguage, ...slug] = profile.id.split("/");
+
+			if (profileLanguage === letter.data.language) {
+				paths.push({
+					params: {
+						company: letter.slug,
+						profilename: slug.join("/"),
+					},
+					props: {
+						letter,
+						profile,
+					},
+				});
+			}
+		});
+	});
+
+	console.log(paths);
+
+	return paths;
+}
+
+const { letter, profile } = Astro.props;
+
+const language = letter.data.language;
+const displayCountry = language === "en"; // This could be improved
+
+// There is seemingly no way to return specific messages from page generation in Astro, otherwise we could tell the user what went wrong
+// Though this still narrows down TS types
+if (language !== "en" && language !== "de") {
+	// Language not supported
+	return;
+} else if (!profile) {
+	// Profile not found
+	return;
+}
+
+const info = await getEntry(profile.data.info);
+const { Content } = await letter.render();
+
+const date = new Date();
+const dateString = date.toLocaleString("de-DE", {
+	day: "2-digit",
+	month: "2-digit",
+	year: "numeric",
+});
+---
+
+<Layout title={info.data.fullName + " " + translations[language].letter}>
+	<main>
+		<div class="sheet">
+			<div class="m-10 flex flex-col">
+				<InfoDisplay {info} {displayCountry} />
+				<div class="my-1 py-1 flex justify-between text-sm border-t border-b border-richgreen-100">
+					<div>
+						<p>{letter.data.recipient}</p>
+						<p>{letter.data.companyName}</p>
+						<p>{letter.data.companyAddress}</p>
+						<p>{letter.data.companyCity}</p>
+					</div>
+					<div>
+						<p>
+							{info.data.city}, {dateString}
+						</p>
+					</div>
+				</div>
+				<h2 class="my-1 text-sm font-bold">{letter.data.title}</h2>
+				<div
+					class="prose prose-sm prose-p:my-2.5 max-w-none text-justify"
+				>
+					<Content />
+				</div>
+				<div class="col-start-2 mt-1 flex place-content-start">
+					<SignedSection {info} />
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
