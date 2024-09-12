@@ -4,9 +4,11 @@ import { type CollectionEntry } from "astro:content";
 
 interface Props {
 	info: CollectionEntry<"info">;
+	showDate?: boolean;
+	alignRight?: boolean;
 }
 
-const { info } = Astro.props;
+const { info, showDate, alignRight } = Astro.props;
 
 const date = new Date();
 const dateString = date.toLocaleString("de-DE", {
@@ -16,7 +18,7 @@ const dateString = date.toLocaleString("de-DE", {
 });
 ---
 
-<div class="flex max-w-96 flex-col place-items-end text-right text-sm">
+<div class=`flex max-w-96 flex-col text-sm ${alignRight && " place-items-end text-right"}`>
 	<Image
 		width={150}
 		height={150}
@@ -24,6 +26,6 @@ const dateString = date.toLocaleString("de-DE", {
 		src="/signed.png"
 		class="border-richgreen-700 border-b-2"
 	/>
-	<p class="font-bold">{info.data.fullName}</p>
-	<p>{info.data.city}, {dateString}</p>
+	<p class=`font-bold ${!alignRight && "text-center"}`>{info.data.fullName}</p>
+	{showDate && <p>{info.data.city}, {dateString}</p>}
 </div>
